@@ -129,7 +129,7 @@ private:
 
     void _performCleanup_() // IMPLEMENTED CLEANER FUNCTION
     {
-        delete[] ptr_mem;
+        delete ptr_mem;
     }
 };
 
