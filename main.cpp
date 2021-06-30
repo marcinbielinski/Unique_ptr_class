@@ -13,7 +13,7 @@ class Box {
 public:
     Box()
     {
-        std::cout << "I am being constructed! My number is: " << counter << std::endl;
+        std::cout << "I am being constructed! My number is: " << getCount() << std::endl;
         name = __func__;
         counter++;
     }
@@ -32,16 +32,13 @@ public:
     }
 
     std::mt19937 eng = engine();
+
+    // Seed random numbers in range 0 to 100;
     int seedFunc()
     {
         return std::uniform_int_distribution<>(0, 100)(eng);
     }
 
-//    ~Box()
-//    {
-//        std::cout << "I am being destructed! My number is: " << counter << std::endl;
-//
-//    }
     struct Iterator
     {
         using iterator_category [[maybe_unused]] = std::forward_iterator_tag;
@@ -70,7 +67,9 @@ public:
     Iterator end() { return Iterator(&m_data[20]); }
 
 private:
+    // initialising private members with random seeded numbers in range 0 - 100
     int length{seedFunc()}, width{seedFunc()}, height{seedFunc()};
+
     const char* name;
     static int counter;
     int m_data[20]{};
@@ -202,12 +201,12 @@ private:
 
 int main() {
     // CREATE A UNIQUE_PTR_CLASS OBJECT HOLDING A BOX OBJECT
-    Unique_ptr_class<Box> box1(new Box); // creating an object works
-    Unique_ptr_class<Box> box2(std::move(box1)); // move constructor works, std::move casts box1 to r-value ref
+    // Unique_ptr_class<Box> box1(new Box); // creating an object works
+    // Unique_ptr_class<Box> box2(std::move(box1)); // move constructor works, std::move casts box1 to r-value ref
     // Unique_ptr_class<Box> box3(box2); // call to deleted copy constructor!
 
     // CREATE A UNIQUE_PTR_CLASS OBJECT HOLDING AN ARRAY OF BOX OBJECTS
-    Unique_ptr_class<Box[]> boxArr1(new Box[5]);
+    // Unique_ptr_class<Box[]> boxArr1(new Box[5]);
 
     // index based assignment
 //    Box b1 = boxArr1[0];
@@ -217,7 +216,7 @@ int main() {
 //    Box b5 = boxArr1[4];
     // Box b0 = boxArr1[-1]; // Negative index exception is thrown!
 
-    Unique_ptr_class<Box[]> boxArr2(std::move(boxArr1));
+    // Unique_ptr_class<Box[]> boxArr2(std::move(boxArr1));
 
     std::vector<Unique_ptr_class<Box>> vec;
 
@@ -238,6 +237,8 @@ int main() {
     {
         elem->sayHello();
     }
-    std::cout << Box::getCount();
+
+    std::cout << Box::getCount() << std::endl;
+
     return 0;
 }
