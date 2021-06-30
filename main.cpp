@@ -13,9 +13,9 @@ class Box {
 public:
     Box()
     {
+        counter++;
         std::cout << "I am being constructed! My number is: " << getCount() << std::endl;
         name = __func__;
-        counter++;
     }
 
     void sayHello()
@@ -42,8 +42,8 @@ public:
     struct Iterator
     {
         using iterator_category [[maybe_unused]] = std::forward_iterator_tag;
-        using difference_type [[maybe_unused]] = std::ptrdiff_t;
-        using value_type [[maybe_unused]] = int;
+        using difference_type   [[maybe_unused]] = std::ptrdiff_t;
+        using value_type        [[maybe_unused]] = int;
         using pointer           = int*;  // or also value_type*
         using reference         = int&;  // or also value_type&
 
@@ -75,7 +75,7 @@ private:
     int m_data[20]{};
 };
 
-int Box::counter {1};
+int Box::counter {0};
 
 template <typename T>
 class Unique_ptr_class
